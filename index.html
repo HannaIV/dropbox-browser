@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Dropbox list</title>
+  <meta charset="utf-8">
+
+</head>
+<style>
+li.a {
+    list-style-type: square;
+}
+</style>
+<body>
+  <nav>
+    <h1>My dropbox:</h1>
+    <ul id='lst'>​</ul>
+  </nav>
+
+  <script type="text/javascript">
+    "use strict";
+    fetch("https://api.dropboxapi.com/2/files/list_folder", {
+      body: JSON.stringify({
+        "path": "/WannaBY/incoming"
+      }),
+      headers: {
+        Authorization: "Bearer YS1x4kZ9tZcAAAAAAAAY3UCJt8tYrE1iwS7F7LKqVYQVZG3BHwRFio1YKMmENyCp",
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    }).then(
+      function(response) {
+        if (response.status == 200) {
+          response.json().then(listDrFolder);
+        }
+      }
+    );
+
+    function listDrFolder(contents) {
+      var ul = document.getElementById('lst');
+      for (var i = 0; i < contents.entries.length; i++) {
+        ul.innerHTML += `<li class= "a">${contents.entries[i].name}</li>`
+        console.log(contents.entries[i].name);
+      }
+    }
+    // function look() {
+      // {isFile?'file':'folder'}
+    // }
+  </script>
+</body>
+
+</html>
