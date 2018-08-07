@@ -7,13 +7,17 @@
 
 </head>
 <style>
-li.a {
+  .a {
+    list-style-type: circle;
+  }
+  .b {
     list-style-type: square;
-}
+  }
 </style>
+
 <body>
   <nav>
-    <h1>My dropbox:</h1>
+    <!--<h1 id='currentDirectory'>My dropbox:</h1>-->
     <ul id='lst'>​</ul>
   </nav>
 
@@ -38,14 +42,24 @@ li.a {
 
     function listDrFolder(contents) {
       var ul = document.getElementById('lst');
+      // var h1 = document.getElementById('currentDirectory');
+      // h1.innerHTML += `${contents.entries[i].path_display}`;
+
+      function look(contents) {
+        if (contents.entries[i]['.tag'] === 'file') {
+          contents.entries[i]['.tag'].addClass('b');
+        } else {
+          contents.entries[i]['.tag'].addClass('a');
+        }
+      }
+
       for (var i = 0; i < contents.entries.length; i++) {
-        ul.innerHTML += `<li class= "a">${contents.entries[i].name}</li>`
+        // console.log(contents.entries[i].path_display);
+        ul.innerHTML += `<li class = 'look'>${contents.entries[i].name}</li>`
         console.log(contents.entries[i].name);
       }
+
     }
-    // function look() {
-      // {isFile?'file':'folder'}
-    // }
   </script>
 </body>
 
