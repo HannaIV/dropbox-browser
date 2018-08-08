@@ -2,59 +2,18 @@
 <html lang="en">
 
 <head>
-  <title>Dropbox list</title>
+  <title>Dropbox Browser</title>
   <meta charset="utf-8">
-
+  <script type="text/javascript" src="script.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css"></link>
 </head>
-<style>
-  .file {
-    list-style-type: circle;
-  }
-  .folder {
-    list-style-type: square;
-  }
-</style>
 
 <body>
-  <nav>
-    <h1 id='currentDirectory'>My dropbox:</h1>
-    <ul id='lst'>​</ul>
-  </nav>
-
-  <script type="text/javascript">
-    "use strict";
-    fetch("https://api.dropboxapi.com/2/files/list_folder", {
-      body: JSON.stringify({
-        "path": "/WannaBY/incoming"
-      }),
-      headers: {
-        Authorization: "Bearer YS1x4kZ9tZcAAAAAAAAY3UCJt8tYrE1iwS7F7LKqVYQVZG3BHwRFio1YKMmENyCp",
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    }).then(
-      function(response) {
-        if (response.status == 200) {
-          response.json().then(listDrFolder);
-        }
-      }
-    );
-
-    function listDrFolder(contents) {
-      var ul = document.getElementById('lst');
-      //var h1 = document.getElementById('currentDirectory');
-      //h1.innerHTML += `${contents.entries[i].path_display}`;
-
-
-      for (var i = 0; i < contents.entries.length; i++) {
-        // console.log(contents.entries[i].path_display);
-
-       ul.innerHTML += `<li class="${contents.entries[i]['.tag']}">${contents.entries[i].name}</li>`
-        console.log(contents.entries[i].name);
-      }
-
-    }
-  </script>
+  <h1>Dropbox Browser</h1>
+  <p>Contents of folder "<span id="currentPath"></span>"</p>
+  <ul id='lst'></ul>
 </body>
 
 </html>

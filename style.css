@@ -1,0 +1,8 @@
+.file {
+  list-style-type: circle;
+}
+
+.folder {
+  list-style-type: square;
+  cursor: pointer;
+}
