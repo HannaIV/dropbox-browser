@@ -26,14 +26,24 @@ function requestFolderContents(path) {
 }
 
 function process(response) {
-  var ul = document.getElementById('lst');
-  ul.innerHTML = '';
+  var ulElement = document.getElementById('lst');
+  ulElement.innerHTML = '';
+
   for (let entry of response.entries) {
-    var li = `<li class="${entry['.tag']}"`;
+    var liElement = document.createElement("li");
     if (entry['.tag'] == 'folder') {
-      li += ` onclick="requestFolderContents('${entry.path_display}')"`;
+      liElement.setAttribute('onclick', `requestFolderContents('${entry.path_display}')`);
+      liElement.setAttribute('class', 'folder');
+
+      var iElement = document.createElement('i');
+      iElement.setAttribute('class', 'fa-li far fa-folder')
+      liElement.appendChild(iElement);
+    } else {
+      var iElement = document.createElement('i');
+      iElement.setAttribute('class', 'fa-li far fa-file')
+      liElement.appendChild(iElement);
     }
-    li += `>${entry.name}</li>`;
-    ul.innerHTML += li;
+    liElement.appendChild(document.createTextNode(entry.name))
+    ulElement.appendChild(liElement);
   }
 }
